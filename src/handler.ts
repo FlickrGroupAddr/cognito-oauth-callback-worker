@@ -19,8 +19,27 @@ export async function handleRequest(request: Request): Promise<Response> {
 
     const cognitoSubId:string = "f803355d-4396-4b79-b7b8-d887402b25cd"
     const flickrGroupAddrSessionId:string = "0b48936d-cc79-487f-a1e6-289373450c93"
+    
+    // Set these values in cookies, then redirect to Flickr auth
 
-    return new Response( "Cognito sub ID: " + cognitoSubId + "\n\nSession ID: " + flickrGroupAddrSessionId);
+
+    //return new Response( "Cognito sub ID: " + cognitoSubId + "\n\nSession ID: " + flickrGroupAddrSessionId);
+    const redirectUrl:string = "https://flickrgroupaddr.com/flickr-auth.html"
+    const redirectStatusCode:number = 301
+    let callbackResponse:Response = new Response(
+        "",
+        {
+            "status"    : redirectStatusCode,
+            "headers"   : {
+                "location"      : redirectUrl,
+                "set-cookie"    : "FGA_COGNITO_SUB_ID=" + cognitoSubId + "; Max-Age: 604800; Domain=flickrgroupaddr.com; Path=/; Secure; SameSite=None",
+            }
+        }
+    )
+
+    return callbackResponse
+
+    //return Response.redirect( redirectUrl, redirectStatusCode )
 }
 
 
