@@ -32,10 +32,14 @@ export async function handleRequest(request: Request): Promise<Response> {
             "status"    : redirectStatusCode,
             "headers"   : {
                 "location"      : redirectUrl,
-                "set-cookie"    : "FGA_COGNITO_SUB_ID=" + cognitoSubId + "; Max-Age: 604800; Domain=flickrgroupaddr.com; Path=/; Secure; SameSite=None",
-            }
-        }
-    )
+            },
+        } )
+
+    callbackResponse.headers.append( "set-cookie", 
+        "FGA_COGNITO_SUB_ID=" + cognitoSubId + "; Max-Age: 604800; Domain=flickrgroupaddr.com; Path=/; Secure; SameSite=Strict" )
+    callbackResponse.headers.append( "set-cookie", 
+        "FGA_SESSION_ID=" + flickrGroupAddrSessionId + "; Max-Age: 604800; Domain=flickrgroupaddr.com; Path=/; Secure; SameSite=Strict" )
+                
 
     return callbackResponse
 
