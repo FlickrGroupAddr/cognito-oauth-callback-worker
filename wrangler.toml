@@ -2,8 +2,8 @@ name = "flickrgroupaddr-oauth-callback"
 type = "javascript"
 zone_id = ""
 account_id = ""
-route = ""
-workers_dev = true
+route = "auth.flickrgroupaddr.com/oauth/callback*"
+workers_dev = false
 compatibility_date = "2021-12-03"
 
 [build]
